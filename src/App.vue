@@ -2,7 +2,8 @@
 <template>
   <div id="app">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <PackChart :tweetData="loadData" />
+    <!-- <PackChart :tweetData="loadData" /> -->
+    <GridChart />
   </div>
 </template>
 
@@ -10,13 +11,15 @@
 import * as d3 from "d3";
 
 // import HelloWorld from "./components/HelloWorld.vue";
-import PackChart from "./components/Chart.vue";
+// import PackChart from "./components/Chart.vue";
+import GridChart from "./components/Grid.vue";
 
 export default {
   name: "app",
   components: {
     // HelloWorld,
-    PackChart
+    // PackChart,
+    GridChart
   },
   data: function() {
     return {
