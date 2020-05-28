@@ -33,25 +33,33 @@ export default {
       height: 500,
       width: 500,
       square: 20,
+      cells: 0,
       girdData: []
     };
   },
   created() {
-    let cells = 0;
     for (var c = 0; c < this.squaresColumn; c++) {
       for (var r = 0; r < this.squaresRow; r++) {
         this.girdData.push({
           class: `square row-${r} col-${c}s`,
-          id: `s-${cells++}`,
+          id: `s-${this.cells++}`,
           width: this.square,
           height: this.square,
           x: 20 * c,
           y: 20 * r,
-          fill: "#7AC143",
+          fill: "#BFC9CA",
           stroke: "#FDBB30"
         });
       }
     }
+  },
+  mounted: function() {
+    this.$nextTick(function() {
+      window.setInterval(() => {
+        this.girdData[parseInt(Math.floor(Math.random() * this.cells))].fill =
+          "#F5B041";
+      }, 1000);
+    });
   },
   methods: {},
   computed: {
