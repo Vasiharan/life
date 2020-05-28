@@ -1,8 +1,8 @@
 <template>
   <div>
     <header>
-      <h4 id="grid-ref">roll-over grid</h4>
-      <h4>{{ msg }}</h4>
+      <h4>Alive count</h4>
+      <h4>{{ totalAlive }}</h4>
       <svg :height="height" :width="width">
         <rect
           v-for="item in girdData"
@@ -13,13 +13,11 @@
           :height="item.height"
           :x="item.x"
           :y="item.y"
-          :fill="item.fill"
+          :fill="item.alive ? '#F5B041' : '#BFC9CA'"
           :stroke="item.stroke"
         />
       </svg>
     </header>
-
-    <section id="grid"></section>
   </div>
 </template>
 
@@ -30,44 +28,70 @@ export default {
   data() {
     return {
       msg: "👋 from the Gird Component",
-      height: 500,
-      width: 500,
+      height: 200,
+      width: 200,
       square: 20,
       cells: 0,
-      girdData: []
+      girdData: [],
+      initalGrid: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
     };
   },
   created() {
-    for (var c = 0; c < this.squaresColumn; c++) {
-      for (var r = 0; r < this.squaresRow; r++) {
-        this.girdData.push({
-          class: `square row-${r} col-${c}s`,
-          id: `s-${this.cells++}`,
-          width: this.square,
-          height: this.square,
-          x: 20 * c,
-          y: 20 * r,
-          fill: "#BFC9CA",
-          stroke: "#FDBB30"
-        });
-      }
-    }
+    let row = 0;
+    this.initalGrid.forEach(rows => {
+      let col = 0;
+      rows.forEach(cel => {
+        console.log(`R:${row} c:${col}`, cel);
+        this.createSquare(row, col, cel == 1);
+        col++;
+      });
+      row++;
+    });
   },
   mounted: function() {
     this.$nextTick(function() {
       window.setInterval(() => {
-        this.girdData[parseInt(Math.floor(Math.random() * this.cells))].fill =
-          "#F5B041";
+        this.girdData[
+          parseInt(Math.floor(Math.random() * this.cells))
+        ].alive = true;
       }, 1000);
     });
   },
-  methods: {},
+  methods: {
+    createSquare(row, col, alive) {
+      this.girdData.push({
+        class: `square row-${row} col-${col}s`,
+        id: `s-${this.cells++}`,
+        width: this.square,
+        height: this.square,
+        x: 20 * col,
+        y: 20 * row,
+        alive: alive,
+        fill: alive ? "#F5B041" : "#BFC9CA",
+        stroke: "#FDBB30"
+      });
+    }
+  },
   computed: {
     squaresRow() {
       return Math.round(this.width / this.square);
     },
     squaresColumn() {
       return Math.round(this.height / this.square);
+    },
+    totalAlive() {
+      return this.girdData.filter(x => x.alive).length;
     }
   }
 };
