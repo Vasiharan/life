@@ -132,11 +132,6 @@ export default {
       });
       this.girdData = newGirdData;
     }
-  },
-  computed: {
-    totalAlive() {
-      return this.girdData.filter(x => x.alive).length;
-    }
   }
 };
 </script>
