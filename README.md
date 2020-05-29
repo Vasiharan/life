@@ -2,6 +2,8 @@
 
 # Conway's Game of Life
 
+See [Rules](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+
 ## Project setup
 
 ```
