@@ -1,5 +1,5 @@
 <template>
-  <span style="margin: 20px; display:inline-block;">
+  <span style="margin: 10px; display:inline-block;">
     <svg :height="height" :width="width">
       <rect
         v-for="(item) in this.girdData"
