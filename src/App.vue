@@ -1,41 +1,51 @@
 
 <template>
   <div id="app">
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <!-- <PackChart :tweetData="loadData" /> -->
-    <GridChart />
+    <GridChart :girdConfig="girdOne" />
+    <GridChart :girdConfig="girdTwo" />
+    <GridChart :girdConfig="girdThree" />
+    <GridChart :girdConfig="girdFour" />
+    <GridChart :girdConfig="girdFive" />
+    <GridChart :girdConfig="girdSix" />
+    <GridChart :girdConfig="girdSeven" />
+    <GridChart :girdConfig="girdEight" />
   </div>
 </template>
 
 <script>
-import * as d3 from "d3";
-
-// import HelloWorld from "./components/HelloWorld.vue";
-// import PackChart from "./components/Chart.vue";
 import GridChart from "./components/Grid.vue";
+import Grids from "./config/girds";
 
 export default {
   name: "app",
   components: {
-    // HelloWorld,
-    // PackChart,
     GridChart
   },
   data: function() {
     return {
-      loadData: []
+      loadData: [],
+      girdOne: [],
+      girdTwo: [],
+      girdThree: [],
+      girdFour: [],
+      girdFive: [],
+      girdSix: [],
+      girdSeven: [],
+      girdEight: []
     };
   },
-  mounted() {
-    console.log("App loaded");
-    this.fetchData();
+  created() {
+    this.girdOne = Grids.GLIDER;
+    this.girdTwo = Grids.SMALL_EXPLODER;
+    this.girdThree = Grids.EXPLODER;
+    this.girdFour = Grids.ROW_OF_TEN;
+    this.girdFive = Grids.LIGHTWEIGHT_SPACESHIP;
+    this.girdSix = Grids.TUMBLER;
+    this.girdSeven = Grids.CHECKBOARD;
+    this.girdEight = Grids.BIG_SHAPE;
   },
-  methods: {
-    async fetchData() {
-      let data = await d3.json("./tweets.json");
-      this.loadData = data;
-    }
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 
