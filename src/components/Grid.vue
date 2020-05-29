@@ -45,17 +45,24 @@ export default {
   },
   methods: {
     initialiseGrid() {
-      this.rows = this.initalGrid.length;
-      this.cols = this.initalGrid[0].length;
+      this.rows = this.initalGrid.length * 2;
+      this.cols = this.initalGrid[0].length * 2;
       this.height = this.rows * this.square;
       this.width = this.cols * this.square;
     },
     setGrid() {
+      for (let row = 0; row < this.rows; row++) {
+        for (let col = 0; col < this.cols; col++) {
+          this.createSquare(row, col, 0);
+        }
+      }
       let row = 0;
       this.initalGrid.forEach(rows => {
         let col = 0;
         rows.forEach(cel => {
-          this.createSquare(row, col, cel == 1);
+          this.girdData.find(c => {
+            return c.row == row && c.col == col;
+          }).alive = cel == 1;
           col++;
         });
         row++;
@@ -65,7 +72,7 @@ export default {
       this.$nextTick(function() {
         window.setInterval(() => {
           this.evolve();
-        }, 1000);
+        }, 100);
       });
     },
     createSquare(row, col, alive) {
