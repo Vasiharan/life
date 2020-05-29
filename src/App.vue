@@ -1,6 +1,7 @@
 
 <template>
   <div id="app">
+    <h2>Conway's Game of Life</h2>
     <GridChart :girdConfig="girdOne" />
     <GridChart :girdConfig="girdTwo" />
     <GridChart :girdConfig="girdThree" />
